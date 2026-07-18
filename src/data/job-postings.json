@@ -1,0 +1,278 @@
+{
+  "_note": "Curated seed sample of representative postings compiled for Sage's demo — NOT scraped live. requirement_excerpts are trimmed to the requirement lines only; source_url points to a placeholder seed host. Within each role_type the core requirements deliberately recur so the readiness aggregation has real signal.",
+  "captured_date": "2026-07-15",
+  "postings": [
+    {
+      "id": "aiml-01",
+      "role_type": "ai-ml-engineer-new-grad",
+      "title": "Machine Learning Engineer, Applied AI",
+      "company_archetype": "Growth-stage AI product company",
+      "source_url": "https://seed.sage.dev/postings/aiml-01",
+      "captured_date": "2026-07-15",
+      "requirement_excerpts": [
+        "Strong Python and hands-on experience with PyTorch or TensorFlow",
+        "Deploy and serve models in production, owning latency, throughput and reliability",
+        "Experience building on large language models: RAG, prompting, and evaluation of LLM outputs",
+        "Set up experiment tracking, offline/online evaluation, and CI/CD for model releases",
+        "Comfortable reading recent ML literature and turning it into shipped features"
+      ]
+    },
+    {
+      "id": "aiml-02",
+      "role_type": "ai-ml-engineer-new-grad",
+      "title": "New Grad Machine Learning Engineer",
+      "company_archetype": "Large consumer technology company",
+      "source_url": "https://seed.sage.dev/postings/aiml-02",
+      "captured_date": "2026-07-15",
+      "requirement_excerpts": [
+        "Proficiency in Python; familiarity with a deep learning framework such as PyTorch",
+        "Take models from notebook to production endpoints with monitoring and rollback",
+        "Build and operate large-scale data and training pipelines",
+        "Instrument model quality metrics and automated evaluation before rollout",
+        "BS/MS in CS or related field; internship experience with real ML systems preferred"
+      ]
+    },
+    {
+      "id": "aiml-03",
+      "role_type": "ai-ml-engineer-new-grad",
+      "title": "AI Engineer, LLM Products",
+      "company_archetype": "Early-stage LLM application startup",
+      "source_url": "https://seed.sage.dev/postings/aiml-03",
+      "captured_date": "2026-07-15",
+      "requirement_excerpts": [
+        "Ship features powered by LLMs: retrieval-augmented generation, tool use, prompt engineering",
+        "Python required; experience with model-serving frameworks a plus",
+        "Deploy inference services to production and keep p95 latency within budget",
+        "Design evaluation harnesses that measure hallucination, groundedness and regressions",
+        "Own a feature end to end from prototype to production traffic"
+      ]
+    },
+    {
+      "id": "aiml-04",
+      "role_type": "ai-ml-engineer-new-grad",
+      "title": "Machine Learning Engineer I",
+      "company_archetype": "Enterprise SaaS company",
+      "source_url": "https://seed.sage.dev/postings/aiml-04",
+      "captured_date": "2026-07-15",
+      "requirement_excerpts": [
+        "Python and PyTorch or TensorFlow for model development",
+        "Build distributed data and feature pipelines that feed training at scale",
+        "Serve models in production and set up model monitoring for drift and degradation",
+        "Partner with platform teams on CI/CD and reproducible training runs",
+        "New grads welcome; demonstrated ML project or internship experience expected"
+      ]
+    },
+    {
+      "id": "aiml-05",
+      "role_type": "ai-ml-engineer-new-grad",
+      "title": "Applied Scientist, New Grad",
+      "company_archetype": "Cloud infrastructure provider",
+      "source_url": "https://seed.sage.dev/postings/aiml-05",
+      "captured_date": "2026-07-15",
+      "requirement_excerpts": [
+        "Strong Python; experience training models with PyTorch or JAX",
+        "Work with large-scale distributed training and data-processing pipelines",
+        "Translate research prototypes into production-grade services",
+        "Experience fine-tuning or prompting large language models is a plus",
+        "Rigorous about experiment design and offline evaluation"
+      ]
+    },
+    {
+      "id": "aiml-06",
+      "role_type": "ai-ml-engineer-new-grad",
+      "title": "ML Platform Engineer, Early Career",
+      "company_archetype": "Fintech scale-up",
+      "source_url": "https://seed.sage.dev/postings/aiml-06",
+      "captured_date": "2026-07-15",
+      "requirement_excerpts": [
+        "Python and solid software-engineering fundamentals",
+        "Build the tooling that deploys and serves models reliably in production",
+        "Own model CI/CD, experiment tracking and automated evaluation gates",
+        "Operate large-scale batch and streaming data pipelines for features",
+        "Care about observability: metrics, logging and alerting for ML services"
+      ]
+    },
+
+    {
+      "id": "be-01",
+      "role_type": "backend-engineer-junior",
+      "title": "Software Engineer, Backend",
+      "company_archetype": "Large consumer technology company",
+      "source_url": "https://seed.sage.dev/postings/be-01",
+      "captured_date": "2026-07-15",
+      "requirement_excerpts": [
+        "Solid CS fundamentals and proficiency in one of Go, Java, or Python",
+        "Design and build scalable REST and gRPC APIs",
+        "Model data in relational databases and write and optimize SQL queries",
+        "Work with Docker, Kubernetes and a major cloud provider (AWS or GCP)",
+        "Contribute to microservices in a distributed, high-throughput system"
+      ]
+    },
+    {
+      "id": "be-02",
+      "role_type": "backend-engineer-junior",
+      "title": "Junior Backend Engineer",
+      "company_archetype": "Series B fintech",
+      "source_url": "https://seed.sage.dev/postings/be-02",
+      "captured_date": "2026-07-15",
+      "requirement_excerpts": [
+        "1+ years or strong internship experience in Java, Go, or Python",
+        "Build and maintain production REST APIs used by web and mobile clients",
+        "Design database schemas and tune SQL for performance",
+        "Deploy services with Docker and Kubernetes on AWS",
+        "Own reliability: monitoring, alerting and on-call for your services"
+      ]
+    },
+    {
+      "id": "be-03",
+      "role_type": "backend-engineer-junior",
+      "title": "New Grad Software Engineer, Platform",
+      "company_archetype": "Enterprise SaaS company",
+      "source_url": "https://seed.sage.dev/postings/be-03",
+      "captured_date": "2026-07-15",
+      "requirement_excerpts": [
+        "BS in CS or equivalent; strong data structures and algorithms",
+        "Build distributed microservices that scale to high request volumes",
+        "Containerize and deploy services on Kubernetes in the cloud",
+        "Instrument services with metrics, tracing and structured logging",
+        "Expose clean, versioned APIs for internal and external consumers"
+      ]
+    },
+    {
+      "id": "be-04",
+      "role_type": "backend-engineer-junior",
+      "title": "Backend Developer I",
+      "company_archetype": "E-commerce marketplace",
+      "source_url": "https://seed.sage.dev/postings/be-04",
+      "captured_date": "2026-07-15",
+      "requirement_excerpts": [
+        "Proficiency in a backend language such as Python, Go or Java",
+        "Design and ship REST APIs backing high-traffic product features",
+        "Strong SQL and experience with relational database design",
+        "Work within a microservices architecture and understand its trade-offs",
+        "Deploy with containers to a cloud environment"
+      ]
+    },
+    {
+      "id": "be-05",
+      "role_type": "backend-engineer-junior",
+      "title": "Software Engineer, Services",
+      "company_archetype": "Cloud infrastructure provider",
+      "source_url": "https://seed.sage.dev/postings/be-05",
+      "captured_date": "2026-07-15",
+      "requirement_excerpts": [
+        "Strong programming fundamentals in Go, Java or C++",
+        "Build and operate distributed backend services at scale",
+        "Design relational and key-value data models; write efficient SQL",
+        "Own service reliability including on-call, SLOs and incident response",
+        "Design and evolve internal APIs between services"
+      ]
+    },
+    {
+      "id": "be-06",
+      "role_type": "backend-engineer-junior",
+      "title": "Early Career Backend Engineer",
+      "company_archetype": "Health-tech scale-up",
+      "source_url": "https://seed.sage.dev/postings/be-06",
+      "captured_date": "2026-07-15",
+      "requirement_excerpts": [
+        "Internship or 1+ years with Python, Java or Go",
+        "Build secure, well-tested REST APIs for regulated data",
+        "Deploy to Kubernetes on AWS or GCP",
+        "Work in a distributed microservices environment",
+        "Add monitoring and alerting so issues are caught before users notice"
+      ]
+    },
+
+    {
+      "id": "de-01",
+      "role_type": "data-engineer-junior",
+      "title": "Data Engineer I",
+      "company_archetype": "Enterprise SaaS company",
+      "source_url": "https://seed.sage.dev/postings/de-01",
+      "captured_date": "2026-07-15",
+      "requirement_excerpts": [
+        "Build and maintain batch ETL/ELT pipelines that power analytics",
+        "Strong SQL and hands-on experience with a cloud data warehouse (Snowflake, BigQuery or Redshift)",
+        "Process large datasets with Apache Spark",
+        "Orchestrate workflows with Airflow or a similar scheduler",
+        "Python for pipeline code and data tooling"
+      ]
+    },
+    {
+      "id": "de-02",
+      "role_type": "data-engineer-junior",
+      "title": "Junior Data Engineer",
+      "company_archetype": "Growth-stage analytics startup",
+      "source_url": "https://seed.sage.dev/postings/de-02",
+      "captured_date": "2026-07-15",
+      "requirement_excerpts": [
+        "Develop ELT pipelines that load raw data into the warehouse",
+        "Advanced SQL against Snowflake or BigQuery",
+        "Author and schedule DAGs in Airflow",
+        "Data modeling for analytics and dashboards, with tests for data quality",
+        "Python and version control in a collaborative codebase"
+      ]
+    },
+    {
+      "id": "de-03",
+      "role_type": "data-engineer-junior",
+      "title": "New Grad Data Engineer",
+      "company_archetype": "Large consumer technology company",
+      "source_url": "https://seed.sage.dev/postings/de-03",
+      "captured_date": "2026-07-15",
+      "requirement_excerpts": [
+        "Build reliable ETL pipelines feeding downstream analytics and ML",
+        "Strong SQL; experience with a cloud data warehouse",
+        "Distributed data processing with Spark",
+        "Design dimensional data models and enforce data quality checks",
+        "BS in CS or related; internship with real data pipelines preferred"
+      ]
+    },
+    {
+      "id": "de-04",
+      "role_type": "data-engineer-junior",
+      "title": "Analytics Data Engineer",
+      "company_archetype": "E-commerce marketplace",
+      "source_url": "https://seed.sage.dev/postings/de-04",
+      "captured_date": "2026-07-15",
+      "requirement_excerpts": [
+        "Own ELT pipelines from source systems into the warehouse",
+        "Expert SQL and modeling in BigQuery or Snowflake",
+        "Orchestrate transformations with Airflow or dbt",
+        "Build data-quality tests and monitoring for pipeline freshness",
+        "Partner with analysts to model clean, trustworthy datasets"
+      ]
+    },
+    {
+      "id": "de-05",
+      "role_type": "data-engineer-junior",
+      "title": "Data Platform Engineer, Early Career",
+      "company_archetype": "Fintech scale-up",
+      "source_url": "https://seed.sage.dev/postings/de-05",
+      "captured_date": "2026-07-15",
+      "requirement_excerpts": [
+        "Build and operate ingestion pipelines for batch and streaming data",
+        "Process data at scale with Spark",
+        "Work with streaming systems such as Kafka or Kinesis",
+        "Orchestrate jobs with Airflow and monitor pipeline health",
+        "Python and solid software-engineering practices"
+      ]
+    },
+    {
+      "id": "de-06",
+      "role_type": "data-engineer-junior",
+      "title": "Data Engineer, Pipelines",
+      "company_archetype": "Cloud infrastructure provider",
+      "source_url": "https://seed.sage.dev/postings/de-06",
+      "captured_date": "2026-07-15",
+      "requirement_excerpts": [
+        "Design ETL/ELT pipelines that move data reliably at scale",
+        "Strong SQL and experience with a columnar data warehouse",
+        "Large-scale processing with Spark",
+        "Ingest real-time event streams via Kafka",
+        "Python for data infrastructure and automation"
+      ]
+    }
+  ]
+}
