@@ -1,0 +1,36 @@
+ALEX CHEN
+San Jose, CA · alex.chen@example.com · github.com/alexchen-dev
+
+EDUCATION
+B.S. Computer Science, San Jose State University — May 2026
+Relevant coursework: Machine Learning, Distributed Systems, Databases, Algorithms
+
+EXPERIENCE
+
+Machine Learning Intern — Northstar Analytics (Summer 2025)
+- Built a retrieval-augmented question-answering prototype over internal docs using Python and a
+  small open-source LLM, improving answer relevance in manual evaluation by 30%.
+- Wrote a nightly batch job in Python to clean and load ~2M support tickets into a Postgres
+  database for the data science team.
+- Added a simple offline evaluation script that scored model answers against a labeled set so we
+  could compare prompt variations.
+
+Software Engineering Intern — CampusHub (Summer 2024)
+- Built REST API endpoints in Node.js and Express for a student-events feature used by ~4,000
+  students on campus.
+- Designed the PostgreSQL schema for events and RSVPs and wrote SQL queries behind the listings
+  page.
+- Containerized the service with Docker and deployed it to a single cloud VM.
+
+PROJECTS
+
+CourseGraph (class project, 2025)
+- Trained a PyTorch model to recommend courses from historical enrollment data.
+- Deployed the model behind a small Flask API for the class demo.
+
+TripSplit (personal project)
+- Full-stack expense-splitting app with a React front end and a Python backend.
+- Modeled users, trips, and expenses in PostgreSQL.
+
+SKILLS
+Python, JavaScript/TypeScript, SQL, PyTorch, Node.js, Express, React, Docker, Git, PostgreSQL
