@@ -1,0 +1,15 @@
+node_modules
+.env
+.env.local
+.DS_Store
+.tanstack
+/dist/
+/dist-ssr/
+/.vercel/
+/.run/
+src/routeTree.gen.ts
+
+# Personal planning doc — kept out of a possibly-public repo
+Sage_Hackathon_Plan.md
+# Redundant source asset; canonical copy lives in public/brand/
+sage_owl_final.png

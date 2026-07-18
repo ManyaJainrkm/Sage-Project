@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+/* Sage brand tokens — dark, sharp, instrument-like. Gold is the identity
+   color; the functional colors carry data meaning ONLY, never decoration. */
+@theme {
+  --color-bg: #0c0d0f;
+  --color-surface: #131519;
+  --color-line: #22252b;
+  --color-gold: #e7b84b;
+  --color-gold-muted: #c79a3e;
+  --color-ink: #f2f0ea;
+  --color-muted: #8b8f8c;
+  --color-track: #1c1f24;
+
+  /* Functional — data/status only */
+  --color-positive: #0f9d58;
+  --color-info: #4285f4;
+  --color-warn: #f4b400;
+  --color-critical: #db4437;
+
+  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  :root {
+    color: var(--color-ink);
+    background: var(--color-bg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  html,
+  body {
+    min-height: 100%;
+    background: var(--color-bg);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-gold) 30%, transparent);
+  }
+}
+
+@layer components {
+  /* Thin geometric panel — the base surface for every module. */
+  .panel {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+  }
+
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.7rem;
+    color: var(--color-muted);
+  }
+}
