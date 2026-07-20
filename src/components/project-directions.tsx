@@ -31,7 +31,7 @@ export function ProjectDirections({ gaps }: { gaps: VerifiedRecurringGap[] }) {
     return (
       <p className="text-sm text-muted">
         No single gap recurred across enough postings to clear the threshold. Nothing here is a
-        verified cross-role pattern — check the per-role gaps above.
+        verified cross-role pattern, so check the per-role gaps above.
       </p>
     );
   }

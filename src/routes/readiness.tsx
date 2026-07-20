@@ -27,7 +27,7 @@ function ReadinessView() {
         </Link>
         <h1 className="text-3xl font-semibold">Readiness · {result.contextLabel}</h1>
         <p className="text-muted">
-          Synthesized across the seeded shortlist for this role type — not an average of separate
+          Combined across the seeded shortlist for this role type, not an average of separate
           scores.
         </p>
       </header>
@@ -46,7 +46,7 @@ function ReadinessView() {
           <h2 className="text-xl font-semibold">Recurring gaps to close</h2>
           <p className="mt-1 text-sm text-muted">
             Skills required across most postings for this role that your resume doesn&apos;t yet
-            show. Counts are verified from the specific postings — never taken on the model&apos;s
+            show. Counts are verified from the specific postings, never taken on the model&apos;s
             word.
           </p>
         </div>
@@ -82,8 +82,8 @@ function ReadinessView() {
           <div>
             <h2 className="text-lg font-semibold">Buried strengths to surface</h2>
             <p className="mt-1 text-sm text-muted">
-              Real experience in your resume that&apos;s under-emphasized for this role — surface it
-              truthfully, don&apos;t invent it.
+              Real experience in your resume that&apos;s under-emphasized for this role. Show it
+              honestly, without inventing anything.
             </p>
           </div>
           <div className="grid gap-3 md:grid-cols-2">

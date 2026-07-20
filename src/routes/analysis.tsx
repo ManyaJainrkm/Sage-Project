@@ -64,7 +64,7 @@ function AnalysisView() {
           <div>
             <h2 className="text-lg font-semibold">Buried strengths to surface</h2>
             <p className="mt-1 text-sm text-muted">
-              Real experience you can reframe to speak to this posting — surfaced truthfully.
+              Real experience from your resume you can reframe to fit this posting.
             </p>
           </div>
           <div className="grid gap-3 md:grid-cols-2">

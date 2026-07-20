@@ -30,7 +30,7 @@ export class UnsupportedResumeFileError extends Error {
 export class ScannedResumeError extends Error {
   constructor() {
     super(
-      "This PDF looks scanned or image-only — Sage can't read text from it. " +
+      "This PDF looks scanned or image-only, so Sage can't read text from it. " +
         "Paste your resume text instead.",
     );
     this.name = "ScannedResumeError";
@@ -98,7 +98,7 @@ function classify(file: File): ResumeSourceKind {
   }
   if (TXT_EXT.test(file.name) || file.type.startsWith("text/")) return "txt";
   throw new UnsupportedResumeFileError(
-    "Unsupported file. Upload a PDF, DOCX, or TXT — or paste your resume text.",
+    "Unsupported file. Upload a PDF, DOCX, or TXT, or paste your resume text.",
   );
 }
 

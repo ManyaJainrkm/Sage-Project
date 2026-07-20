@@ -22,17 +22,17 @@ export interface RoleType {
 export const ROLE_TYPES: readonly RoleType[] = [
   {
     id: "ai-ml-engineer-new-grad",
-    label: "AI/ML Engineer — New Grad",
+    label: "AI/ML Engineer (New Grad)",
     blurb: "Entry-level roles building and shipping ML/LLM systems to production.",
   },
   {
     id: "backend-engineer-junior",
-    label: "Backend Engineer — Junior",
+    label: "Backend Engineer (Junior)",
     blurb: "Junior roles designing APIs and distributed services at scale.",
   },
   {
     id: "data-engineer-junior",
-    label: "Data Engineer — Junior",
+    label: "Data Engineer (Junior)",
     blurb: "Junior roles building batch and streaming data pipelines.",
   },
 ] as const;

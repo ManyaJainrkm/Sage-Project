@@ -135,7 +135,7 @@ function SageHome() {
       </section>
 
       {!resume && (
-        <p className="-mt-6 text-sm text-muted">Add your resume above to unlock analysis.</p>
+        <p className="-mt-6 text-sm text-muted">Add your resume above to start.</p>
       )}
       {error && <p className="text-sm text-[var(--color-critical)]">{error}</p>}
     </div>

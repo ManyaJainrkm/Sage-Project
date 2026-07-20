@@ -116,7 +116,7 @@ export function UploadPanel() {
             value={paste}
             onChange={(event) => setPaste(event.target.value)}
             rows={8}
-            placeholder="Paste your resume text here — exact wording is preserved."
+            placeholder="Paste your resume text here. Your exact wording is preserved."
             className="panel w-full resize-y bg-bg p-3 text-sm text-ink outline-none placeholder:text-muted focus:border-gold-muted"
           />
           <button
