@@ -14,7 +14,7 @@ function band(score: number): string {
   if (score >= 85) return "Strong match";
   if (score >= 65) return "Solid, with real gaps";
   if (score >= 45) return "Right domain, several gaps";
-  if (score >= 25) return "Early — major gaps";
+  if (score >= 25) return "Early: major gaps";
   return "Fundamentally different";
 }
 

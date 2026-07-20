@@ -34,7 +34,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className="mx-auto flex max-w-5xl flex-col gap-1 px-6 py-5 text-[0.7rem] text-muted">
           <span>
             Sage reasons about the distance between your experience and a target role. It only
-            references experience present in your resume — it never invents or embellishes.
+            references experience present in your resume; it never invents or embellishes.
           </span>
           <span>
             Seeded postings are a curated representative sample for the demo, not live listings.
