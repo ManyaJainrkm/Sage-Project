@@ -66,9 +66,24 @@ export interface RecurrenceVerificationLogEntry {
   verified_posting_ids: string[];
   reason: "invalid_posting_ids_removed" | "below_verified_threshold";
 }
+/**
+ * A claim collapsed because it cited evidence already used by another claim.
+ * This is a presentation concern, NOT a verification failure: the evidence was
+ * genuine and verified. Deliberately kept out of the status calculation so a
+ * duplicate never marks a run "degraded".
+ */
+export interface DuplicateEvidenceLogEntry {
+  kind: "strength" | "buried_strength";
+  /** The claim that was dropped. */
+  skill: string;
+  /** The claim that retained this evidence. */
+  kept_skill: string;
+  evidence_from_resume: string;
+}
 export interface ReasoningValidation {
   evidence: EvidenceVerificationLogEntry[];
   recurrence: RecurrenceVerificationLogEntry[];
+  duplicates: DuplicateEvidenceLogEntry[];
 }
 export interface ReasoningRun<T extends SageAnalysis = SageAnalysis> {
   analysis: T;
@@ -235,19 +250,47 @@ function validateInputs(resume: ParsedResume, shortlist: readonly SageJobPosting
   if (ids.some((id) => !id.trim()) || new Set(ids).size !== ids.length)
     throw new Error("Shortlist postings require unique, non-empty stable ids.");
 }
-function emptyValidation(): ReasoningValidation { return { evidence: [], recurrence: [] }; }
+function emptyValidation(): ReasoningValidation { return { evidence: [], recurrence: [], duplicates: [] }; }
 function logEvidenceFailure(entry: EvidenceVerificationLogEntry): void {
   // No resume content is written to logs.
   console.warn("[sage:evidence-verification]", entry);
 }
+/**
+ * Collapses claims that resolve to the same resume evidence. The model
+ * sometimes emits two differently-labeled strengths quoting one sentence,
+ * which reads as padding. Keyed on the NORMALIZED resolved evidence, so
+ * citations differing only in whitespace or punctuation collapse together.
+ *
+ * Exact-match only, deliberately: substring matching would risk discarding a
+ * genuinely distinct strength whose quote happens to overlap another.
+ * The first claim wins, preserving the model's own ordering.
+ */
+function claimDeduper(kind: "strength" | "buried_strength", validation: ReasoningValidation) {
+  const seen = new Map<string, string>();
+  return (skill: string, evidence: string): boolean => {
+    const key = normalizeForEvidenceMatch(evidence);
+    const keptSkill = seen.get(key);
+    if (keptSkill !== undefined) {
+      validation.duplicates.push({ kind, skill, kept_skill: keptSkill, evidence_from_resume: evidence });
+      return false;
+    }
+    seen.set(key, skill);
+    return true;
+  };
+}
+
 function verifyStrengths(values: unknown, resume: string, validation: ReasoningValidation): ResumeStrength[] {
   if (!Array.isArray(values)) return [];
   const output: ResumeStrength[] = [];
+  const isFirstUse = claimDeduper("strength", validation);
   for (const item of values) {
     if (!isStrength(item)) continue;
     const evidence = resolveResumeEvidence(resume, item.evidence_from_resume);
-    if (evidence) output.push({ skill: item.skill, evidence_from_resume: evidence });
-    else {
+    if (evidence) {
+      if (isFirstUse(item.skill, evidence)) {
+        output.push({ skill: item.skill, evidence_from_resume: evidence });
+      }
+    } else {
       const entry: EvidenceVerificationLogEntry = {
         kind: "strength", skill: item.skill, evidence_from_resume: item.evidence_from_resume,
         normalized_evidence: normalizeForEvidenceMatch(item.evidence_from_resume), reason: "not_found_in_resume",
@@ -260,11 +303,15 @@ function verifyStrengths(values: unknown, resume: string, validation: ReasoningV
 function verifyBuriedStrengths(values: unknown, resume: string, validation: ReasoningValidation): BuriedStrength[] {
   if (!Array.isArray(values)) return [];
   const output: BuriedStrength[] = [];
+  const isFirstUse = claimDeduper("buried_strength", validation);
   for (const item of values) {
     if (!isBuriedStrength(item)) continue;
     const evidence = resolveResumeEvidence(resume, item.evidence_from_resume);
-    if (evidence) output.push({ skill: item.skill, evidence_from_resume: evidence, how_to_surface_it: item.how_to_surface_it });
-    else {
+    if (evidence) {
+      if (isFirstUse(item.skill, evidence)) {
+        output.push({ skill: item.skill, evidence_from_resume: evidence, how_to_surface_it: item.how_to_surface_it });
+      }
+    } else {
       const entry: EvidenceVerificationLogEntry = {
         kind: "buried_strength", skill: item.skill, evidence_from_resume: item.evidence_from_resume,
         normalized_evidence: normalizeForEvidenceMatch(item.evidence_from_resume), reason: "not_found_in_resume",

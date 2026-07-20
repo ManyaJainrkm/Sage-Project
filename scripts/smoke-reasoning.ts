@@ -51,11 +51,20 @@ function reportCommon(run: ReasoningRun): void {
   console.log("buried_strengths:  ", run.analysis.buried_strengths.length);
   console.log("evidence dropped:  ", run.validation.evidence.length);
   console.log("recurrence adjust: ", run.validation.recurrence.length);
+  console.log("duplicates merged: ", run.validation.duplicates.length);
   if (run.warnings.length) console.log("warnings:          ", run.warnings);
 
   console.log("\nStrengths (verified verbatim):");
   for (const strength of run.analysis.strengths) {
     console.log(`  • ${strength.skill}: “${strength.evidence_from_resume}”`);
+  }
+
+  if (run.validation.duplicates.length > 0) {
+    console.log("\nDuplicates MERGED (same resume evidence, not a failure):");
+    for (const entry of run.validation.duplicates) {
+      console.log(`  ↺ [${entry.kind}] dropped “${entry.skill}” — evidence already used by “${entry.kept_skill}”`);
+      console.log(`      shared evidence: “${entry.evidence_from_resume.slice(0, 72)}…”`);
+    }
   }
 
   if (run.validation.evidence.length > 0) {
