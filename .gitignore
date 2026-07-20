@@ -3,6 +3,7 @@ node_modules
 .env.local
 .DS_Store
 .tanstack
+.claude/
 /dist/
 /dist-ssr/
 /.vercel/
