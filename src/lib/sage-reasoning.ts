@@ -37,9 +37,77 @@ export interface SageReasoningInput {
   postings: SageJobPosting[];
 }
 
+/**
+ * The Responses API has no top-level output_text field. The content lives at
+ * output[] -> (type "message") -> content[] -> (type "output_text") -> text.
+ * Reasoning models interleave non-message items (e.g. reasoning blocks) in the
+ * output array, so both levels are searched by type, never by index.
+ */
 interface ResponsesPayload {
-  output_text?: unknown;
+  output?: unknown;
   error?: { message?: unknown };
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function typesSeen(items: readonly unknown[]): string {
+  const types = items.map((item) =>
+    isRecord(item) && typeof item.type === "string" ? item.type : "unknown",
+  );
+  return types.length > 0 ? types.join(", ") : "none";
+}
+
+/**
+ * Extracts the model's JSON text from a Responses API payload. Every failure
+ * reports the actual top-level keys (and the item types encountered) so a
+ * future shape change is diagnosable instead of silent.
+ */
+function extractOutputText(payload: ResponsesPayload): string {
+  const context = `top-level response keys: [${
+    Object.keys(payload as Record<string, unknown>).join(", ") || "none"
+  }]`;
+
+  const output = payload.output;
+  if (!Array.isArray(output)) {
+    throw new ReasoningValidationError([
+      `Responses API payload has no "output" array; ${context}`,
+    ]);
+  }
+
+  const message = output.find(
+    (item): item is Record<string, unknown> => isRecord(item) && item.type === "message",
+  );
+  if (!message) {
+    throw new ReasoningValidationError([
+      `Responses API "output" had no item of type "message" (saw: [${typesSeen(output)}]); ${context}`,
+    ]);
+  }
+
+  const content = message.content;
+  if (!Array.isArray(content)) {
+    throw new ReasoningValidationError([
+      `Responses API message item has no "content" array; ${context}`,
+    ]);
+  }
+
+  const textItem = content.find(
+    (item): item is Record<string, unknown> => isRecord(item) && item.type === "output_text",
+  );
+  if (!textItem) {
+    throw new ReasoningValidationError([
+      `Responses API message content had no "output_text" item (saw: [${typesSeen(content)}]); ${context}`,
+    ]);
+  }
+
+  if (typeof textItem.text !== "string") {
+    throw new ReasoningValidationError([
+      `Responses API "output_text" item has no string "text"; ${context}`,
+    ]);
+  }
+
+  return textItem.text;
 }
 
 const OPENAI_RESPONSES_URL = "https://api.openai.com/v1/responses";
@@ -74,18 +142,62 @@ function parseOutput(outputText: string): unknown {
   }
 }
 
+/**
+ * Node's fetch reports every transport failure as the opaque "fetch failed"
+ * and hides the real reason on error.cause. Unwrap it so a timeout, DNS
+ * failure, and connection reset are distinguishable from each other.
+ */
+function describeNetworkError(error: unknown): string {
+  if (!(error instanceof Error)) return String(error);
+  const cause: unknown = (error as { cause?: unknown }).cause;
+  if (cause instanceof Error) {
+    const code: unknown = (cause as { code?: unknown }).code;
+    const codePart = typeof code === "string" ? `, code ${code}` : "";
+    return `${error.message} (cause: ${cause.message}${codePart})`;
+  }
+  return error.message;
+}
+
+/**
+ * A batched readiness call reasons over a whole shortlist and is slow, so the
+ * timeout is generous. One retry covers a transient transport blip; because
+ * the failure happened before any response, retrying cannot duplicate work.
+ */
+const REQUEST_TIMEOUT_MS = 240_000;
+
+async function postToResponsesApi(body: string): Promise<Response> {
+  let lastError: unknown;
+  for (let attempt = 1; attempt <= 2; attempt += 1) {
+    try {
+      return await fetch(OPENAI_RESPONSES_URL, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${getApiKey()}`,
+          "Content-Type": "application/json",
+        },
+        body,
+        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+      });
+    } catch (error) {
+      lastError = error;
+      if (attempt === 2) break;
+      console.warn(
+        `[sage:network] request attempt ${String(attempt)} failed, retrying once: ${describeNetworkError(error)}`,
+      );
+    }
+  }
+  throw new Error(
+    `Network request to the OpenAI Responses API failed after 2 attempts: ${describeNetworkError(lastError)}`,
+  );
+}
+
 async function callModel(input: SageReasoningInput, repairError?: string): Promise<unknown> {
   const isBatched = input.postings.length > 1;
   const modelInput = repairError
     ? `${buildModelInput(input)}\n\nYour prior response failed validation: ${repairError}\nReturn a corrected response matching the schema. Do not discuss the error.`
     : buildModelInput(input);
-  const response = await fetch(OPENAI_RESPONSES_URL, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${getApiKey()}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
+  const response = await postToResponsesApi(
+    JSON.stringify({
       model: MODEL,
       instructions: SAGE_REASONING_SYSTEM_PROMPT,
       input: modelInput,
@@ -99,7 +211,7 @@ async function callModel(input: SageReasoningInput, repairError?: string): Promi
         },
       },
     }),
-  });
+  );
   const payload = await response.json() as ResponsesPayload;
   if (!response.ok) {
     const message = typeof payload.error?.message === "string"
@@ -107,9 +219,7 @@ async function callModel(input: SageReasoningInput, repairError?: string): Promi
       : `OpenAI Responses API failed with status ${String(response.status)}.`;
     throw new Error(message);
   }
-  if (typeof payload.output_text !== "string")
-    throw new ReasoningValidationError(["Responses API returned no output_text"]);
-  return parseOutput(payload.output_text);
+  return parseOutput(extractOutputText(payload));
 }
 
 /**

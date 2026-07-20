@@ -1,5 +1,11 @@
 /** Strict, verified contract for Sage's single reasoning operation. */
 
+/**
+ * A recurring gap must be supported by at least this many VERIFIED posting ids
+ * (validated against the shortlist in code, never counted by the model).
+ */
+export const RECURRENCE_THRESHOLD = 4;
+
 export const GAP_SEVERITIES = ["blocking", "significant", "minor"] as const;
 export type GapSeverity = (typeof GAP_SEVERITIES)[number];
 
@@ -278,7 +284,7 @@ function verifyRecurringGaps(values: unknown, shortlist: readonly SageJobPosting
     const rejected_posting_ids = item.posting_ids.filter((id) => !validIds.has(id));
     if (rejected_posting_ids.length) validation.recurrence.push({ skill: item.skill, rejected_posting_ids, verified_posting_ids: posting_ids, reason: "invalid_posting_ids_removed" });
     // The product threshold is evaluated only after code verifies stable IDs.
-    if (posting_ids.length < 4) {
+    if (posting_ids.length < RECURRENCE_THRESHOLD) {
       validation.recurrence.push({ skill: item.skill, rejected_posting_ids, verified_posting_ids: posting_ids, reason: "below_verified_threshold" });
       continue;
     }
