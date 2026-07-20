@@ -3,9 +3,8 @@
 **Bridge the gap between your skills and the role you want.**
 
 **Repo:** https://github.com/ManyaJainrkm/Sage-Project
-**Live demo:** not yet deployed — run locally with the steps in [Running it](#running-it). Sage
-uses a server function to call the model, so a hosted demo needs an SSR host (Vercel/Netlify/Fly)
-with `OPENAI_API_KEY` configured server-side.
+**Live demo:** https://sage-project.onrender.com — analyzed in-session, never stored. Hosted on a
+free tier, so the first request after a period of inactivity may take ~40s to wake the server.
 
 Sage is not a tool to apply to jobs faster. It's a career-development tool. You
 upload your resume and pick a target role type; Sage uses **GPT-5.6** to reason
