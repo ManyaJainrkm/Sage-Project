@@ -159,6 +159,34 @@ function describeNetworkError(error: unknown): string {
 }
 
 /**
+ * Maps an upstream (OpenAI) HTTP error to a SAFE, client-facing message.
+ *
+ * The provider's raw error text can echo secrets — an invalid-key response
+ * literally contains fragments of the API key. That text must never reach the
+ * browser. We log the provider detail server-side for debugging and throw only
+ * a generic, category-based message. Configuration problems (401/403) are
+ * deliberately vague to the user: they signal the operator, not the visitor.
+ */
+function upstreamError(status: number, payload: ResponsesPayload): Error {
+  const providerDetail = typeof payload.error?.message === "string"
+    ? payload.error.message
+    : `status ${String(status)}`;
+  // Server-side only. Never included in the thrown (client-visible) message.
+  console.error(`[sage:openai-error] status ${String(status)}: ${providerDetail}`);
+
+  if (status === 401 || status === 403) {
+    return new Error("Sage isn't configured correctly on the server right now. Please try again later.");
+  }
+  if (status === 429) {
+    return new Error("Sage is receiving too many requests right now. Please try again in a moment.");
+  }
+  if (status >= 500) {
+    return new Error("The reasoning service is temporarily unavailable. Please try again shortly.");
+  }
+  return new Error("Sage couldn't complete this analysis. Please try again.");
+}
+
+/**
  * A batched readiness call reasons over a whole shortlist and is slow, so the
  * timeout is generous. One retry covers a transient transport blip; because
  * the failure happened before any response, retrying cannot duplicate work.
@@ -217,12 +245,7 @@ async function callModel(input: SageReasoningInput, repairError?: string): Promi
     }),
   );
   const payload = await response.json() as ResponsesPayload;
-  if (!response.ok) {
-    const message = typeof payload.error?.message === "string"
-      ? payload.error.message
-      : `OpenAI Responses API failed with status ${String(response.status)}.`;
-    throw new Error(message);
-  }
+  if (!response.ok) throw upstreamError(response.status, payload);
   return parseOutput(extractOutputText(payload));
 }
 
