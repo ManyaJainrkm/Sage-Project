@@ -2,7 +2,7 @@
 
 **Bridge the gap between your skills and the role you want.**
 
-**Repo:** https://github.com/ManyaJainrkm/Sage
+**Repo:** https://github.com/ManyaJainrkm/Sage-Project
 **Live demo:** not yet deployed — run locally with the steps in [Running it](#running-it). Sage
 uses a server function to call the model, so a hosted demo needs an SSR host (Vercel/Netlify/Fly)
 with `OPENAI_API_KEY` configured server-side.

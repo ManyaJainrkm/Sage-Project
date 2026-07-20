@@ -166,13 +166,17 @@ function describeNetworkError(error: unknown): string {
 const REQUEST_TIMEOUT_MS = 240_000;
 
 async function postToResponsesApi(body: string): Promise<Response> {
+  // Resolved before the retry loop: a missing key is a configuration error,
+  // not a transport failure, so it must fail fast with its own message
+  // instead of being retried and reported as a network problem.
+  const apiKey = getApiKey();
   let lastError: unknown;
   for (let attempt = 1; attempt <= 2; attempt += 1) {
     try {
       return await fetch(OPENAI_RESPONSES_URL, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${getApiKey()}`,
+          Authorization: `Bearer ${apiKey}`,
           "Content-Type": "application/json",
         },
         body,
