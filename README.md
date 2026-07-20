@@ -135,7 +135,8 @@ placeholder source URL, capture date, and trimmed requirement excerpts only.
 
 Sage was built primarily in Codex sessions, alongside other AI coding assistants
 used at points across the build. Codex Session ID for the core-functionality
-thread: `<add-session-id>`.
+thread (“Build Sage career gap analyzer”):
+`019f7582-5675-7170-93ae-294692cb11dd`.
 
 **Where AI assistance accelerated the work:**
 
