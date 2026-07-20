@@ -2,6 +2,11 @@
 
 **Bridge the gap between your skills and the role you want.**
 
+**Repo:** https://github.com/ManyaJainrkm/Sage
+**Live demo:** not yet deployed — run locally with the steps in [Running it](#running-it). Sage
+uses a server function to call the model, so a hosted demo needs an SSR host (Vercel/Netlify/Fly)
+with `OPENAI_API_KEY` configured server-side.
+
 Sage is not a tool to apply to jobs faster. It's a career-development tool. You
 upload your resume and pick a target role type; Sage uses **GPT-5.6** to reason
 about the real distance between your experience and that role, aggregates the
@@ -128,10 +133,33 @@ placeholder source URL, capture date, and trimmed requirement excerpts only.
 
 ## Built with Codex
 
-Sage was built inside Codex/Claude Code sessions. The layered structure — a
-strict, self-verifying reasoning contract separated from transport, a
-server-only model boundary, and a UI that renders one JSON shape several ways —
-was developed iteratively there: the assistant accelerated scaffolding, schema
-and verification code, dataset construction, and UI, while the product decisions
-(directions-not-specs, verify-don't-trust, the ≥4 recurrence threshold, the
-two-schema split) were specified and reviewed by the author.
+Sage was built primarily in Codex sessions, alongside other AI coding assistants
+used at points across the build. Codex Session ID for the core-functionality
+thread: `<add-session-id>`.
+
+**Where AI assistance accelerated the work:**
+
+- **Scaffolding** — Vite + TanStack Start + TypeScript setup, strict `tsconfig`,
+  the Tailwind token layer, router and root wiring.
+- **Schema and verification code** — the two-variant strict JSON schema, the
+  evidence-normalization and source-mapping matcher, code-side recurrence
+  counting, and the `degraded`-status handling.
+- **Dataset construction** — the seeded postings with deliberately convergent
+  requirements, plus the retrieval filter.
+- **Resume pipeline** — client-side extraction, scanned-PDF detection, and the
+  conservative whitespace-only profiler.
+- **UI** — the app shell, score gauge, gap list, project directions, and the
+  evidence/verification notes.
+
+**Where the author made the decisions.** The judgments that define the product
+were specified and reviewed by hand, not generated: reasoning about the *delta*
+rather than keyword overlap; **verify, don't trust** (verbatim evidence checking
+and code-side recurrence counting); **directions, not project specs**; the ≥4
+recurrence threshold; the structural two-schema split so an N=1 analysis cannot
+emit a recurrence claim; and the in-session-only privacy stance.
+
+The most instructive moments were the corrections: catching that a `"complete"`
+status was being reported even when fabricated evidence had been silently
+dropped, and that the integration had been written against a plausible but wrong
+Responses API shape — which would have failed at demo time. Both were caught by
+reviewing generated code rather than trusting it.
