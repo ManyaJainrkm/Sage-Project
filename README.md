@@ -1,3 +1,5 @@
+<img src="public/brand/sage-owl.png" alt="Sage" width="120" />
+
 # Sage
 
 **Bridge the gap between your skills and the role you want.**

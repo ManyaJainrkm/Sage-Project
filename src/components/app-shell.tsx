@@ -9,7 +9,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <Link to="/" className="flex items-center gap-3">
             <img
-              src="/brand/sage-owl-final.png"
+              src="/brand/sage-owl.png"
               alt="Sage"
               className="h-8 w-8 object-contain"
             />

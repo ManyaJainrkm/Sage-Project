@@ -17,7 +17,11 @@ export const Route = createRootRoute({
           "Sage reasons about the real distance between your experience and a target role, then shows the recurring skills you're missing and a direction to build.",
       },
     ],
-    links: [{ rel: "stylesheet", href: appCss }],
+    links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", type: "image/png", href: "/brand/sage-owl.png" },
+      { rel: "apple-touch-icon", href: "/brand/sage-owl.png" },
+    ],
   }),
   component: RootComponent,
 });
