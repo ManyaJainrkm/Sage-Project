@@ -11,9 +11,9 @@ export function AppShell({ children }: { children: ReactNode }) {
             <img
               src="/brand/sage-owl.png"
               alt="Sage"
-              className="h-8 w-8 object-contain"
+              className="h-11 w-auto self-stretch object-contain"
             />
-            <div className="leading-tight">
+            <div className="flex flex-col justify-between leading-tight">
               <div className="text-sm font-semibold tracking-[0.28em] text-gold">SAGE</div>
               <div className="text-[0.68rem] text-muted">Know the gap. Close it.</div>
             </div>
